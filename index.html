@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cell Analogy Assignment</title>
+    <style>
+        #main-img {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <span style="display: block; position: absolute; color: white;">
+        <b>This is interactive: Hover over the blue dots!</b><br/>
+        <b>It may take a while to load, so leave your cursor on the dot for a while, and it should load</b><br/>
+        <b>If it still doesn't work, please try the offline version!</b><br/>
+        <b>Every part of this interactive has been hand written and drawn.</b><br/>
+    </span>
+    <img src="main.png" alt="Main" id="main-img" />
+    <script>
+        let maps = {
+            "lysosome.png": [0.4025797691785472,0.34594594594594597],
+            "vacuole.png": [0.7257298031228785,0.35405405405405405],
+            "cytoplasm.png": [0.4290563475899525,0.5306306306306307],
+            "golgi-body.png": [0.6822810590631364,0.6054054054054054],
+            "nucleus.png": [0.49151391717583165,0.6153153153153154],
+            "er.png": [0.329938900203666,0.6603603603603604],
+            "ribosome.png": [0.2640868974881195,0.6567567567567567],
+            "mitochondria.png": [0.5987780040733197,0.6675675675675675],
+            "cell-membrane.png": [0.6938221317040054,0.745945945945946]
+        };
+        let mainImg = document.getElementById("main-img");
+        mainImg.addEventListener("mousemove", e => {
+            let currentX = (e.pageX - mainImg.offsetLeft) / document.body.offsetWidth;
+            let currentY = (e.pageY - mainImg.offsetTop) / document.body.offsetHeight;
+            let done = false;
+            for (k in maps) {
+                let [x, y] = maps[k];
+                let dist = Math.sqrt(Math.pow(currentX - x, 2) + Math.pow(currentY - y, 2));
+                if (dist < 0.02) {
+                    mainImg.setAttribute("src", k);
+                    done = true;
+                }
+            }
+            if (!done) mainImg.setAttribute("src", "main.png");
+        });
+    </script>
+    <!--
+    <script>
+        let maps = {
+        };
+        let mainImg = document.getElementById("main-img");
+        let currentX = 0;
+        let currentY = 0;
+        let name = "";
+        mainImg.addEventListener("mousemove", e => {
+            currentX = (e.pageX - mainImg.offsetLeft) / document.body.offsetWidth;
+            currentY = (e.pageY - mainImg.offsetTop) / document.body.offsetHeight;
+        });
+        document.addEventListener("keypress", e => {
+            if (e.code === "Enter") {
+                maps[[currentX, currentY]] = name;
+                name = "";
+            } else {
+                let k = e.code.replace("Key", "").toLowerCase();
+                let m = {"period": ".","minus": "-","slash": "/"};
+                if (m[k] !== undefined) {
+                    name += m[k];
+                } else {
+                    name += k;
+                }
+            }
+        });
+    </script>
+    -->
+</body>
+</html>
