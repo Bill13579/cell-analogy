@@ -39,12 +39,15 @@
                 let [x, y] = maps[k];
                 let dist = Math.sqrt(Math.pow(currentX - x, 2) + Math.pow(currentY - y, 2));
                 if (dist < 0.02) {
-                    mainImg.setAttribute("src", k);
+                    setSource(mainImg, k);
                     done = true;
                 }
             }
-            if (!done) mainImg.setAttribute("src", "main.png");
+            if (!done) setSource(mainImg, "main.png");
         });
+        function setSource(img, s) {
+            if (img.getAttribute("src") !== s) img.setAttribute("src", s);
+        }
     </script>
     <!--
     <script>
